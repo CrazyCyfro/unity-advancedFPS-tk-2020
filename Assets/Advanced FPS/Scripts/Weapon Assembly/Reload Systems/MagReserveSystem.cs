@@ -23,7 +23,10 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
     }
     void OnEnable()
     {
+        animator.SetFloat("Reload Speed", 1/reloadDuration);
+
         if (reserve > 0 && mag == 0) Reload();
+        
     }
 
     void OnDisable()
@@ -41,11 +44,16 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
     public override void Fired()
     {
         mag -= 1;
-        if (reserve > 0 && mag == 0) Reload();
+        
 
         // Debug.Log("Mag: " + mag);
         // Debug.Log("Reserve: " + reserve);
         
+    }
+
+    public override void PostFireAction()
+    {
+        if (reserve > 0 && mag == 0) Reload();
     }
 
     public override void Reload()
@@ -56,6 +64,7 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
 
         reloadCoroutine = ReloadTimer();
         StartCoroutine(reloadCoroutine);
+        
         animator.SetTrigger("Reload");
 
         // Debug.Log("Reload started");

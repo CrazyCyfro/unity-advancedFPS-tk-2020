@@ -42,13 +42,12 @@ public class FpsPickupDropScript : MonoBehaviour
             // Get WeaponPickupScript, call Pickup and assign it as active weapon
             WeaponPickupScript weapon = hit.collider.GetComponentInParent<WeaponPickupScript>();
             if (switcher.AssignActiveWeapon(hit.transform.root.gameObject)) {
-                weapon.Pickup();
-
-                FpsEvents.UpdateHeldWeapon.Invoke();
-                FpsEvents.UpdateWeaponData.Invoke();
-                FpsEvents.UpdateHudEvent.Invoke();
+                weapon.Pickup();    
             }
-                
+
+            FpsEvents.UpdateHeldWeapon.Invoke();
+            FpsEvents.UpdateWeaponData.Invoke();
+            FpsEvents.UpdateHudEvent.Invoke();
         }
     }
 }

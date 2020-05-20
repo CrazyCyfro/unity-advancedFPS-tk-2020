@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PistolFireMech : FireMechanism
+public class SniperFireMech : FireMechanism
 {
     public int damage;
     private Camera playerCamera;
@@ -24,12 +24,17 @@ public class PistolFireMech : FireMechanism
         
         if (playerCamera == null) playerCamera = GetComponentInParent<Camera>();
         
-        if (!scope.Scoped()) animator.SetTrigger("Hip Fire");
-
-        // Check for impact. If present, continue.
+        // Check for impact. If present, continue. Inaccurate when not scoped in
         RaycastHit hit;
-        if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity)) return;
-        
+        if (scope.Scoped()) {
+            if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity)) return;
+        } else {
+            animator.SetTrigger("Hip Fire");
+            Vector3 randomPos = new Vector3(Random.Range(0, playerCamera.pixelWidth), Random.Range(0, playerCamera.pixelHeight), 0);
+            Ray ray = playerCamera.ScreenPointToRay(randomPos);
+            if (!Physics.Raycast(ray, out hit, Mathf.Infinity)) return;
+        }
+
         if (hit.collider.gameObject.TryGetComponent(out HealthBase enemy)) {
             
             enemy.TakeDamage(damage);

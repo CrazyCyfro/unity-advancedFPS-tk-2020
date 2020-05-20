@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2008852f4d71ab145af0398d4a673c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adsTime: 0.2
+  adsDelay: 0.1
 --- !u!114 &160966271315910049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160966271315910053}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef886da611b86f24c8fcbf36cfd78853, type: 3}
   m_Name: 

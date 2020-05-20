@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NoScope : ScopeBase, IScopeStatus
 {
+
     public override void Scope(){}
 
     public bool Scoped()

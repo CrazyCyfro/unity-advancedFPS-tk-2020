@@ -36,4 +36,9 @@ public class MeleeSystem : ReloadSystem, IReloadStatus
     {
         return false;
     }
+
+    public override void PostFireAction()
+    {
+        
+    }
 }

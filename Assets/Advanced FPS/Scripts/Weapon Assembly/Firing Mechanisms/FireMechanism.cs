@@ -10,7 +10,7 @@ public abstract class FireMechanism : MonoBehaviour
         Auto
     }
     public FireMode mode;
-    [SerializeField] protected float cooldown;
+    public float cooldown;
     private float t = 0;
     public bool CooledDown()
     {

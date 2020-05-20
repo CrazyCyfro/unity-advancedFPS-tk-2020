@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IronSight : ScopeBase, IScopeStatus
+public class SniperScope : ScopeBase, IScopeStatus
 {
-    public float adsDelay;
+    public float zoomDelay;
+    public float zoomedFOV;
+    private float defaultFOV;
     private IReloadStatus reloadStatus;
     private Animator animator;
+    private Camera playerCamera;
     private bool scoped;
 
     void Awake()
@@ -17,7 +20,9 @@ public class IronSight : ScopeBase, IScopeStatus
 
     void OnEnable()
     {
-        animator.SetFloat("Scope Speed", 1/adsDelay);
+        animator.SetFloat("Scope Speed", 1/zoomDelay);
+        playerCamera = GetComponentInParent<Camera>();
+        defaultFOV = playerCamera.fieldOfView;
     }
     void OnDisable()
     {
@@ -36,12 +41,21 @@ public class IronSight : ScopeBase, IScopeStatus
 
         animator.SetBool("Scoped", true);
         scoped = true;
+        StartCoroutine(ZoomIn());
+    }
+
+    IEnumerator ZoomIn()
+    {
+        yield return new WaitForSeconds(zoomDelay);
+
+        if (scoped) playerCamera.fieldOfView = zoomedFOV;
     }
 
     private void Relax()
     {
         animator.SetBool("Scoped", false);
         scoped = false;
+        playerCamera.fieldOfView = defaultFOV;
     }
 
     public override void Scope()

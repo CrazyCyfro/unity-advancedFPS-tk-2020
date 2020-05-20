@@ -49,6 +49,7 @@ public class FpsFireManagerScript : MonoBehaviour
         if (fireMech.CooledDown() && reloadSys.CanFire()) {
             fireMech.Fire();
             reloadSys.Fired();
+            StartCoroutine(FiredDelay());
 
             if (scope.Scoped()) {
                 recoil.RecoilScoped();
@@ -64,5 +65,12 @@ public class FpsFireManagerScript : MonoBehaviour
     {
         FpsEvents.UpdateWeaponData.Invoke();
         FpsEvents.UpdateHudEvent.Invoke();
+    }
+
+    IEnumerator FiredDelay()
+    {
+        yield return new WaitForSeconds(fireMech.cooldown);
+        reloadSys.PostFireAction();
+        RefreshHud();
     }
 }

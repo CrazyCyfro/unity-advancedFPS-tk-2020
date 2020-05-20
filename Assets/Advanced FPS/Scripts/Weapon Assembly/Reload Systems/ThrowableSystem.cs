@@ -54,6 +54,11 @@ public class ThrowableSystem : ReloadSystem, IReloadStatus, ITransferable
         }
     }
 
+    public override void PostFireAction()
+    {
+        
+    }
+
     public bool OutOfAmmo()
     {
         return false;
