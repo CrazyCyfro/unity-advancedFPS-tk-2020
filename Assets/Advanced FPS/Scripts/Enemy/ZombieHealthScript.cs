@@ -8,10 +8,14 @@ public class ZombieHealthScript : HealthBase
     private Animator animator;
     private Collider col;
 
+    private EntityLootScript loot;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
+
+        loot = GetComponent<EntityLootScript>();
     }
     void Start()
     {
@@ -21,8 +25,10 @@ public class ZombieHealthScript : HealthBase
     public override void Die()
     {
         animator.SetTrigger("Dead");
-        col.isTrigger = true;
+        col.enabled = false;
         Destroy(gameObject, 3);
+
+        if (loot != null) loot.DropLoot();
 
         MonoBehaviour[] zombieScripts = GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour script in zombieScripts) {

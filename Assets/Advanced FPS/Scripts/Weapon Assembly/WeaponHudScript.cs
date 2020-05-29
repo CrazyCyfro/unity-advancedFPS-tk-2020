@@ -31,6 +31,7 @@ public class WeaponHudScript : MonoBehaviour
         weaponData.outOfAmmo = reloadStatus.OutOfAmmo();
         weaponData.reloading = reloadStatus.Reloading();
         weaponData.scoping = scopeStatus.Scoped();
+        weaponData.noCrossshair = scopeStatus.NoCrosshair();
     }
 
     void ClearData()
@@ -39,5 +40,6 @@ public class WeaponHudScript : MonoBehaviour
         weaponData.outOfAmmo = false;
         weaponData.reloading = false;
         weaponData.scoping = false;
+        weaponData.noCrossshair = false;
     }
 }

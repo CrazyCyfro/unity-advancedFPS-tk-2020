@@ -58,4 +58,9 @@ public class IronSight : ScopeBase, IScopeStatus
     {
         return scoped;
     }
+
+    public bool NoCrosshair()
+    {
+        return false;
+    }
 }

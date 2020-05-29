@@ -4,31 +4,46 @@ using UnityEngine;
 
 public class FpsRecoilRecoveryScript : MonoBehaviour
 {
-    public Transform weaponPos;
     public Transform trueDirection;
-    public Camera playerCamera;
-
+    private Camera playerCamera;
     private RecoilBase recoil;
+    private Quaternion startRotation;
+    private float recoilTime;
+    private float t;
 
     void Awake()
     {
+        t = 0;
+        startRotation = trueDirection.rotation;
+        playerCamera = GetComponentInChildren<Camera>();
+
         FpsEvents.UpdateHeldWeapon.AddListener(AssignHeldWeapon);
+        FpsEvents.RecoilEvent.AddListener(RecoilCamera);
     }
 
     void Update()
     {
         if (recoil != null) UpdateCameraRotation();
     }
-
-    void AssignHeldWeapon()
-    {
-        recoil = weaponPos.GetComponentInChildren<RecoilBase>();
-    }
-
     void UpdateCameraRotation()
     {
-        if (playerCamera.transform.rotation.Equals(trueDirection.rotation)) return;
+        t += Time.deltaTime/recoilTime;
+        playerCamera.transform.rotation = Quaternion.Slerp(startRotation, trueDirection.rotation, t);
+    }
 
-        playerCamera.transform.rotation = Quaternion.Slerp(playerCamera.transform.rotation, trueDirection.rotation, Time.deltaTime * recoil.RecoverySpeed());
+    void AssignHeldWeapon()
+
+    {
+        recoil = transform.GetComponentInChildren<RecoilBase>();
+    }
+
+
+    void RecoilCamera(RecoilData data)
+    {
+        playerCamera.transform.Rotate(data.recoilVector);
+        startRotation = playerCamera.transform.rotation;
+
+        t = 0;
+        recoilTime = data.time;
     }
 }

@@ -8,11 +8,11 @@ public class WeaponPickupScript : MonoBehaviour
     private float thrust;
     private const int FP_LAYER = 10;
     private const int WEAPON_LAYER = 11;
-    Animator animator;
-    Rigidbody rb;
-    Collider col;
-    Transform[] children;
-    MonoBehaviour[] components;
+    private Animator animator;
+    private Rigidbody rb;
+    private Collider col;
+    private Transform[] children;
+    private MonoBehaviour[] components;
     void Start()
     {
         thrust = 10;

@@ -14,9 +14,4 @@ public class NoRecoil : RecoilBase
         
         
     }
-
-    public override float RecoverySpeed()
-    {
-        return 0;
-    }
 }

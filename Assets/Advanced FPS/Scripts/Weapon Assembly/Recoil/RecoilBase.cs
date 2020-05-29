@@ -6,5 +6,4 @@ public abstract class RecoilBase : MonoBehaviour
 {
     public abstract void Recoil();
     public abstract void RecoilScoped();
-    public abstract float RecoverySpeed();
 }

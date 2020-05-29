@@ -36,6 +36,8 @@ public class FpsPickupDropScript : MonoBehaviour
         if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, 
         out hit, pickupDistance, weaponMask)) return;
 
+        
+
         // E to pick up weapon
         if (Input.GetKeyDown(KeyCode.E))
         {

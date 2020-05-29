@@ -12,9 +12,18 @@ public class FpsCounterScript : MonoBehaviour
         fps = GetComponent<TextMeshProUGUI>();
     }
 
-    void Update()
+    void Start()
     {
-        fps.text = (1.0f/Time.smoothDeltaTime).ToString();
+        StartCoroutine(DisplayFPS());
+    }
+
+    IEnumerator DisplayFPS()
+    {
+        while (true) {
+            fps.text = Mathf.FloorToInt(1/Time.smoothDeltaTime).ToString();
+            yield return new WaitForSeconds(0.25f);
+        }
+        
     }
     
 }

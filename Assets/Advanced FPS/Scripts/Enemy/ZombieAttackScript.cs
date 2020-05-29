@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class ZombieAttackScript : MonoBehaviour
 {
-    public float attackSpd;
     public int damage;
     public LayerMask playerLayer;
     public PlayerData playerData;
@@ -14,26 +13,26 @@ public class ZombieAttackScript : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
     private Transform source;
-
+    private float attackRange;
     private bool attacking;
     private Vector3 direction;
     
     void Awake()
     {
-        if (attackSpd == 0) attackSpd = 1;
         agent = GetComponent<NavMeshAgent>();
         source = transform.Find("Raycast Source");
         animator = GetComponent<Animator>();
+
+        attackRange = agent.stoppingDistance - 0.2f;
     }
     void Update()
     {
         if (attacking) return;
         if (agent.pathStatus != NavMeshPathStatus.PathComplete) return;
-        if (agent.velocity != Vector3.zero) return;
 
         direction = playerData.playerPos - source.position;
         RaycastHit hit;
-        if (Physics.Raycast(source.position, direction, out hit, 1f, playerLayer)) {
+        if (Physics.Raycast(source.position, direction, out hit, attackRange, playerLayer)) {
             StartCoroutine(AttackPlayer());
         }
     }
@@ -49,15 +48,15 @@ public class ZombieAttackScript : MonoBehaviour
         attacking = true;
 
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(attackDelay / attackSpd);
+        yield return new WaitForSeconds(attackDelay);
         RaycastHit hit;
-        if (Physics.Raycast(source.position, direction, out hit, 1f, playerLayer)) {
+        if (Physics.Raycast(source.position, direction, out hit, attackRange, playerLayer)) {
             // Damage Player
             if (hit.collider.gameObject.TryGetComponent(out HealthBase player)) {
                 player.TakeDamage(damage);
             }
         }
-        yield return new WaitForSeconds(attackRecover / attackSpd);
+        yield return new WaitForSeconds(attackRecover);
         
         attacking = false;
     }

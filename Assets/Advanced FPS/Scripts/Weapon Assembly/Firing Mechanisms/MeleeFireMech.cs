@@ -13,6 +13,11 @@ public class MeleeFireMech : FireMechanism
     {
         animator = GetComponent<Animator>();
     }
+
+    void OnEnable()
+    {
+        animator.SetFloat("Hip Fire Speed", 1/cooldown);
+    }
     public override void Fire()
     {
         
@@ -24,14 +29,14 @@ public class MeleeFireMech : FireMechanism
         RaycastHit hit;
         if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range)) return;
         
-        if (hit.collider.gameObject.TryGetComponent(out HealthBase enemy)) {
-            
+        HealthBase enemy = hit.collider.GetComponentInParent<HealthBase>();
+        if (enemy != null) {
             enemy.TakeDamage(damage);
         }
 
-
-        // Spawn impact particles, destroy after animation is over
-        // GameObject particles = Instantiate(bulletImpactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-        // Destroy(particles, particles.GetComponent<ParticleSystem>().main.duration);
+        IBleedable target = hit.collider.GetComponentInParent<IBleedable>();
+        if (target != null) {
+            target.Bleed(hit.point, hit.normal);
+        }
     }
 }

@@ -9,4 +9,6 @@ public class ActiveWeaponData : ScriptableObject
     public bool outOfAmmo;
     public bool reloading;
     public bool scoping;
+
+    public bool noCrossshair;
 }

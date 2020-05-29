@@ -4,12 +4,6 @@ using UnityEngine;
 
 public abstract class FireMechanism : MonoBehaviour
 {
-    public enum FireMode
-    {
-        Semi,
-        Auto
-    }
-    public FireMode mode;
     public float cooldown;
     private float t = 0;
     public bool CooledDown()
@@ -17,6 +11,16 @@ public abstract class FireMechanism : MonoBehaviour
         if (Time.time - t > cooldown)
         {
             t = Time.time;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool PeekCooled()
+    {
+        if (Time.time - t > cooldown)
+        {
             return true;
         } else {
             return false;
