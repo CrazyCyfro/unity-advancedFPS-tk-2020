@@ -170,9 +170,10 @@ GameObject:
   - component: {fileID: 131410557541020838}
   - component: {fileID: 3530137567108246664}
   - component: {fileID: 3205029677965134978}
-  - component: {fileID: 3205029677965135037}
+  - component: {fileID: 8016453580057883899}
   - component: {fileID: 3205029677965135036}
   - component: {fileID: 3205029677965135039}
+  - component: {fileID: 3205029677965135037}
   - component: {fileID: 3205029677965135033}
   m_Layer: 11
   m_Name: Axe
@@ -188,7 +189,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3205029677965135035}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.283101, y: 1.585, z: -11.754}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -266,19 +267,25 @@ MonoBehaviour:
   cooldown: 1
   damage: 100
   range: 1.8
---- !u!114 &3205029677965135037
+--- !u!114 &8016453580057883899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3205029677965135035}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd94e57b76bcbeb48ae47a607e668c2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f6ddcafccfaa874c9927413fb7952e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: 02000000
+  unsheatheDuration: 0.3
+  delayActivation:
+  - {fileID: 131410557541020838}
+  immediateActivation:
+  - {fileID: 3205029677965134978}
+  - {fileID: 3205029677965135036}
+  - {fileID: 3205029677965135039}
 --- !u!114 &3205029677965135036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +311,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b478632c361165844b94de6e68b31cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3205029677965135037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205029677965135035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd94e57b76bcbeb48ae47a607e668c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: 02000000
 --- !u!95 &3205029677965135033
 Animator:
   serializedVersion: 3

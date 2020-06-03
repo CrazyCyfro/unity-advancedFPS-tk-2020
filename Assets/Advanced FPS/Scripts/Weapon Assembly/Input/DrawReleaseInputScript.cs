@@ -6,6 +6,8 @@ public class DrawReleaseInputScript : MonoBehaviour
 {
     public KeyInput drawKey;
     public KeyInput releaseKey;
+
+    public KeyInput reloadKey;
         
     private FireMechanism fireMech;
     private ReloadSystem reloadSys;
@@ -20,6 +22,7 @@ public class DrawReleaseInputScript : MonoBehaviour
     void Update()
     {
         if (drawKey.KeyActive()) {
+            Debug.Log("Drawing");
             if (drawRelease != null) {
                 if (fireMech.PeekCooled()) drawRelease.Draw();
             }   
@@ -29,13 +32,18 @@ public class DrawReleaseInputScript : MonoBehaviour
             if (drawRelease.Drawn()) {
                 if (fireMech != null  && reloadSys != null && drawRelease != null) {
                     FireWeapon();
-                    RefreshHud();
+                    FpsEvents.FpsUpdateHud();
                 }
             }
             drawRelease.Release(); 
         }
 
-        
+        if (reloadKey.KeyActive()) {
+            if (reloadSys != null) {
+                reloadSys.Reload();
+                FpsEvents.FpsUpdateHud();
+            }
+        }
     }
 
     void FireWeapon()
@@ -44,11 +52,5 @@ public class DrawReleaseInputScript : MonoBehaviour
             fireMech.Fire();
             reloadSys.Fired();
         }
-    }
-
-    void RefreshHud()
-    {
-        FpsEvents.UpdateWeaponData.Invoke();
-        FpsEvents.UpdateHudEvent.Invoke();
     }
 }

@@ -18,15 +18,9 @@ public class MeleeWeaponInputScript : MonoBehaviour
             if (fireMech != null) {
                 if (fireMech.CooledDown()) {
                     fireMech.Fire();
-                    RefreshHud();
+                    FpsEvents.FpsUpdateHud();
                 }
             }
         }
-    }
-
-    void RefreshHud()
-    {
-        FpsEvents.UpdateWeaponData.Invoke();
-        FpsEvents.UpdateHudEvent.Invoke();
     }
 }

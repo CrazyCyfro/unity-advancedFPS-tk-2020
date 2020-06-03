@@ -51,7 +51,7 @@ public class FpsWeaponSwitchScript : MonoBehaviour
         }
     }
 
-    public bool AssignActiveWeapon(GameObject newWeapon)
+    public bool AssignActiveWeapon(Transform newWeapon)
     {
         WeaponPickupScript pickupScript = newWeapon.GetComponent<WeaponPickupScript>();
 
@@ -81,9 +81,10 @@ public class FpsWeaponSwitchScript : MonoBehaviour
 
                         // Transfer ammo to weapon in valid slot
                         newTransferable.Transfer(parentTransferable);
+
+                        // FpsEvents.UpdateHeldWeapon.Invoke();
+                        FpsEvents.FpsUpdateHud();
                         
-                        // FpsEvents.UpdateWeaponData.Invoke();
-                        // FpsEvents.UpdateHudEvent.Invoke();
                         return false;
                     } else {
 
@@ -105,6 +106,9 @@ public class FpsWeaponSwitchScript : MonoBehaviour
 
             // Update activeSlot
             activeSlot = parentSlot;
+
+            // FpsEvents.UpdateHeldWeapon.Invoke();
+            FpsEvents.FpsUpdateHud();
 
             // Add this slot to the Q
             UpdateQ(slot + 1);
@@ -133,6 +137,9 @@ public class FpsWeaponSwitchScript : MonoBehaviour
         // Assign new weapon to vacated activeSlot
         pickupScript.transform.SetParent(activeSlot, false);
 
+        // FpsEvents.UpdateHeldWeapon.Invoke();
+        FpsEvents.FpsUpdateHud();
+
         return true;
     }
 
@@ -154,13 +161,13 @@ public class FpsWeaponSwitchScript : MonoBehaviour
 
         // Activate activeSlot weapon
         activeSlot.GetChild(0).gameObject.SetActive(true);
+
+        // Update weapon reference
+        // FpsEvents.UpdateHeldWeapon.Invoke();
+        FpsEvents.FpsUpdateHud();
         
         UpdateQ(num);
-        // Update weapon reference
-        FpsEvents.UpdateHeldWeapon.Invoke();
-
-        FpsEvents.UpdateWeaponData.Invoke();
-        FpsEvents.UpdateHudEvent.Invoke();
+        
     }
 
     // Assign next active weapon
@@ -178,16 +185,18 @@ public class FpsWeaponSwitchScript : MonoBehaviour
                 activeSlot = parentSlot;
                 activeSlot.GetChild(0).gameObject.SetActive(true);
 
+                
+
                 UpdateQ(slot + 1);
 
                 break;
             }
         }
-        // Update weapon reference
-        FpsEvents.UpdateHeldWeapon.Invoke();
 
-        FpsEvents.UpdateWeaponData.Invoke();
-        FpsEvents.UpdateHudEvent.Invoke();
+        // Update weapon reference
+        // FpsEvents.UpdateHeldWeapon.Invoke();
+        FpsEvents.FpsUpdateHud();
+        
     }
 
     void UpdateQ(int key)

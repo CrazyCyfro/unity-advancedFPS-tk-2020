@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UpwardRecoil : RecoilBase
 {
-    public float recoveryTime;
+    public float recoverySpeed;
     public float maxVerticalAngle;
     public float maxHorizontalAngle;
 
@@ -16,10 +16,7 @@ public class UpwardRecoil : RecoilBase
         FpsEvents.RecoilEvent.Invoke(
             new RecoilData(
                 new Vector3(-maxVerticalAngle, Random.Range(-maxHorizontalAngle, maxHorizontalAngle), 0), 
-                recoveryTime));
-
-        // if (playerCamera == null) playerCamera = GetComponentInParent<Camera>();
-        // playerCamera.transform.Rotate(-maxVerticalAngle, Random.Range(-maxHorizontalAngle, maxHorizontalAngle), 0);
+                recoverySpeed));
     }
 
     public override void RecoilScoped()
@@ -28,10 +25,7 @@ public class UpwardRecoil : RecoilBase
         FpsEvents.RecoilEvent.Invoke(
             new RecoilData(
                 new Vector3(-maxVerticalAngle/scopedRecoilBonus, Random.Range(-maxHorizontalAngle, maxHorizontalAngle)/scopedRecoilBonus, 0),
-                recoveryTime/scopedRecoilBonus));
-
-        // if (playerCamera == null) playerCamera = GetComponentInParent<Camera>();
-        // playerCamera.transform.Rotate(-maxVerticalAngle/scopedRecoilBonus, Random.Range(-maxHorizontalAngle, maxHorizontalAngle)/scopedRecoilBonus, 0);
+                recoverySpeed/scopedRecoilBonus));
         
     }
 }

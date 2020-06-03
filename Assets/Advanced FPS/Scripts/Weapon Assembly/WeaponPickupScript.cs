@@ -13,7 +13,9 @@ public class WeaponPickupScript : MonoBehaviour
     private Collider col;
     private Transform[] children;
     private MonoBehaviour[] components;
-    void Start()
+
+    private WeaponUnsheatheScript unsheatheScript;
+    void Awake()
     {
         thrust = 10;
 
@@ -23,7 +25,10 @@ public class WeaponPickupScript : MonoBehaviour
 
         components = GetComponents<MonoBehaviour>();
         children = GetComponentsInChildren<Transform>();
+        unsheatheScript = GetComponent<WeaponUnsheatheScript>();
     }
+
+    
     public void Pickup()
     {
         transform.localPosition = Vector3.zero;
@@ -33,15 +38,13 @@ public class WeaponPickupScript : MonoBehaviour
         {
             child.gameObject.layer = FP_LAYER;
         }
-        
-        foreach (MonoBehaviour script in components)
-        {
-            script.enabled = true;
-        }
 
         rb.isKinematic = true;
         col.enabled = false;
         if (animator != null) animator.enabled = true;
+
+        unsheatheScript.enabled = true;
+        
     }
 
     public void Drop(Transform dropOffPoint)

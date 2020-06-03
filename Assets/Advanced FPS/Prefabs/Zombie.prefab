@@ -451,7 +451,7 @@ MonoBehaviour:
   buckets:
   - probability: 0.1
     loots:
-    - {fileID: 2165201656789974418, guid: b529ae171bb197c45ac2234fbb38c2de, type: 3}
+    - {fileID: 4190698061917767134, guid: b529ae171bb197c45ac2234fbb38c2de, type: 3}
   - probability: 0.1
     loots:
     - {fileID: 2873214931789757319, guid: c0bd0e24df13d9e499b7956b05e69017, type: 3}

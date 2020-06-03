@@ -147,9 +147,10 @@ GameObject:
   - component: {fileID: 2873214931789757374}
   - component: {fileID: 2873214931789757368}
   - component: {fileID: 2873214931789757369}
-  - component: {fileID: 2873214931789757370}
+  - component: {fileID: 7431449839346809885}
   - component: {fileID: 2873214931789757371}
   - component: {fileID: 2873214931789757316}
+  - component: {fileID: 2873214931789757370}
   - component: {fileID: 2873214931789757318}
   m_Layer: 11
   m_Name: Barrett
@@ -251,10 +252,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b1eda0effc11a4c85905954e845ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoveryTime: 0.5
+  recoverySpeed: 50
   maxVerticalAngle: 20
   maxHorizontalAngle: 5
-  scopedRecoilBonus: 1
+  scopedRecoilBonus: 5
 --- !u!114 &2873214931789757369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,19 +271,27 @@ MonoBehaviour:
   reserve: 7
   magSize: 7
   reloadDuration: 3
---- !u!114 &2873214931789757370
+--- !u!114 &7431449839346809885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2873214931789757319}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd94e57b76bcbeb48ae47a607e668c2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f6ddcafccfaa874c9927413fb7952e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: 0000000001000000
+  unsheatheDuration: 0.3
+  delayActivation:
+  - {fileID: 8875632832949961531}
+  - {fileID: 2873214931789757369}
+  immediateActivation:
+  - {fileID: 2873214931789757375}
+  - {fileID: 2873214931789757374}
+  - {fileID: 2873214931789757371}
+  - {fileID: 2873214931789757316}
 --- !u!114 &2873214931789757371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +317,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b478632c361165844b94de6e68b31cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2873214931789757370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2873214931789757319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd94e57b76bcbeb48ae47a607e668c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: 0000000001000000
 --- !u!95 &2873214931789757318
 Animator:
   serializedVersion: 3

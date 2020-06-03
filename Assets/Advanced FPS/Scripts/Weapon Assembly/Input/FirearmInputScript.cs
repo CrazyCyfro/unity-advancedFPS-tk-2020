@@ -24,24 +24,25 @@ public class FirearmInputScript : MonoBehaviour
 
     void Update()
     {
+
         if (fireKey.KeyActive()) {
             if (fireMech != null  && reloadSys != null) {
                 FireWeapon();
-                RefreshHud();
+                FpsEvents.FpsUpdateHud();
             }
         }
 
         if (reloadKey.KeyActive()) {
             if (reloadSys != null) {
                 reloadSys.Reload();
-                RefreshHud();
+                FpsEvents.FpsUpdateHud();
             }
         }
 
         if (scopeKey.KeyActive()) {
             if (scope != null) {
                 scope.Scope();
-                RefreshHud();
+                FpsEvents.FpsUpdateHud();
             }
             
         }
@@ -52,29 +53,12 @@ public class FirearmInputScript : MonoBehaviour
         if (fireMech.CooledDown() && reloadSys.CanFire()) {
             fireMech.Fire();
             reloadSys.Fired();
-            StopAllCoroutines();
-            StartCoroutine(FiredDelay());
 
             if (scopeStatus.Scoped()) {
                 recoil.RecoilScoped();
             } else {
                 recoil.Recoil();
             }
-        }
-    }
-
-    void RefreshHud()
-    {
-        FpsEvents.UpdateWeaponData.Invoke();
-        FpsEvents.UpdateHudEvent.Invoke();
-    }
-
-    IEnumerator FiredDelay()
-    {
-        yield return new WaitForSeconds(fireMech.cooldown);
-        if (reloadSys != null) {
-            reloadSys.PostFireAction();
-            RefreshHud();
         }
     }
 }

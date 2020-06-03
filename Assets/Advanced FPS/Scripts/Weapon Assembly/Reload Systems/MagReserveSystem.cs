@@ -13,6 +13,8 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
     private int initReserve;
     private bool reloading =  false;
     private IEnumerator reloadCoroutine;
+    private IEnumerator fireDelayCoroutine;
+    private FireMechanism fireMech;
 
     void Awake()
     {
@@ -20,13 +22,13 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
         mag = magSize;
 
         animator = GetComponent<Animator>();
+        fireMech = GetComponent<FireMechanism>();
     }
     void OnEnable()
     {
         animator.SetFloat("Reload Speed", 1/reloadDuration);
 
-        if (reserve > 0 && mag == 0) Reload();
-        
+        if (reserve > 0 && mag == 0) Reload();    
     }
 
     void OnDisable()
@@ -43,12 +45,22 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
 
     public override void Fired()
     {
+        if (fireDelayCoroutine != null) StopCoroutine(fireDelayCoroutine);
+        fireDelayCoroutine = FiredDelay();
+        StartCoroutine(fireDelayCoroutine);
+
         mag -= 1;
         
 
         // Debug.Log("Mag: " + mag);
         // Debug.Log("Reserve: " + reserve);
         
+    }
+
+    IEnumerator FiredDelay()
+    {
+        yield return new WaitForSeconds(fireMech.cooldown);
+        PostFireAction();
     }
 
     public override void PostFireAction()
@@ -67,6 +79,8 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
         
         animator.SetTrigger("Reload");
 
+        FpsEvents.FpsUpdateHud();
+
         // Debug.Log("Reload started");
     }
 
@@ -83,6 +97,7 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
     IEnumerator ReloadTimer()
     {
         reloading = true;
+
         yield return new WaitForSeconds(reloadDuration);
 
         int deficit = magSize - mag;
@@ -96,8 +111,7 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
         // Debug.Log("Reload finished");
         reloading = false;
 
-        FpsEvents.UpdateWeaponData.Invoke();
-        FpsEvents.UpdateHudEvent.Invoke();
+        FpsEvents.FpsUpdateHud();
     }
 
     public int Add(int a)

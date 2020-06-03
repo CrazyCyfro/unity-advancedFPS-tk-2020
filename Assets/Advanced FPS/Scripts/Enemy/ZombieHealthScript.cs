@@ -15,7 +15,7 @@ public class ZombieHealthScript : HealthBase
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
 
-        loot = GetComponent<EntityLootScript>();
+        loot = GetComponentInChildren<EntityLootScript>();
     }
     void Start()
     {
@@ -26,7 +26,7 @@ public class ZombieHealthScript : HealthBase
     {
         animator.SetTrigger("Dead");
         col.enabled = false;
-        Destroy(gameObject, 3);
+        
 
         if (loot != null) loot.DropLoot();
 
@@ -34,6 +34,7 @@ public class ZombieHealthScript : HealthBase
         foreach (MonoBehaviour script in zombieScripts) {
             script.enabled = false;
         }
+        Destroy(gameObject, 3);
     }
 
 
