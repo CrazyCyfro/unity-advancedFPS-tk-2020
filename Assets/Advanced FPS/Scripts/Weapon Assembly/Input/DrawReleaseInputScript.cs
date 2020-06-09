@@ -10,13 +10,15 @@ public class DrawReleaseInputScript : MonoBehaviour
     public KeyInput reloadKey;
         
     private FireMechanism fireMech;
-    private ReloadSystem reloadSys;
+    private AmmoSystem ammoSys;
+    private IReloadable reloadable;
     private DrawReleaseScript drawRelease;
     void Awake()
     {
         fireMech = GetComponent<FireMechanism>();
-        reloadSys = GetComponent<ReloadSystem>();
+        ammoSys = GetComponent<AmmoSystem>();
         drawRelease = GetComponent<DrawReleaseScript>();
+        reloadable = GetComponent<IReloadable>();
     }
 
     void Update()
@@ -30,7 +32,7 @@ public class DrawReleaseInputScript : MonoBehaviour
 
         if (releaseKey.KeyActive()) {
             if (drawRelease.Drawn()) {
-                if (fireMech != null  && reloadSys != null && drawRelease != null) {
+                if (fireMech != null  && ammoSys != null && drawRelease != null) {
                     FireWeapon();
                     FpsEvents.FpsUpdateHud();
                 }
@@ -39,8 +41,8 @@ public class DrawReleaseInputScript : MonoBehaviour
         }
 
         if (reloadKey.KeyActive()) {
-            if (reloadSys != null) {
-                reloadSys.Reload();
+            if (reloadable != null) {
+                reloadable.Reload();
                 FpsEvents.FpsUpdateHud();
             }
         }
@@ -48,9 +50,9 @@ public class DrawReleaseInputScript : MonoBehaviour
 
     void FireWeapon()
     {
-        if (fireMech.CooledDown() && reloadSys.CanFire()) {
+        if (fireMech.CooledDown() && ammoSys.CanFire()) {
             fireMech.Fire();
-            reloadSys.Fired();
+            ammoSys.Fired();
         }
     }
 }

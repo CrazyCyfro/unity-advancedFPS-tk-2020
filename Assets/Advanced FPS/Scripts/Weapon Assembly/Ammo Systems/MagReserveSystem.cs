@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
+public class MagReserveSystem : AmmoSystem, IReloadStatus, IReloadable
 {
     public int reserve;
     public int magSize;
@@ -63,12 +63,12 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
         PostFireAction();
     }
 
-    public override void PostFireAction()
+    public void PostFireAction()
     {
         if (reserve > 0 && mag == 0) Reload();
     }
 
-    public override void Reload()
+    public void Reload()
     {
         if (reloading) return;
         if (mag == magSize) return;
@@ -84,7 +84,7 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
         // Debug.Log("Reload started");
     }
 
-    public override void CancelReload()
+    public void CancelReload()
     {
         if (reloadCoroutine == null) return;
         StopCoroutine(reloadCoroutine);
@@ -112,17 +112,6 @@ public class MagReserveSystem : ReloadSystem, IAddReset, IReloadStatus
         reloading = false;
 
         FpsEvents.FpsUpdateHud();
-    }
-
-    public int Add(int a)
-    {
-        reserve += a;
-        return 0;
-    }
-
-    public void Reset()
-    {
-        reserve = initReserve;
     }
 
     public bool OutOfAmmo()

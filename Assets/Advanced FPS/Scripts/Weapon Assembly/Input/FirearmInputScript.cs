@@ -9,32 +9,34 @@ public class FirearmInputScript : MonoBehaviour
     public KeyInput scopeKey;
     
     private FireMechanism fireMech;
-    private ReloadSystem reloadSys;
+    private AmmoSystem ammoSys;
+    private IReloadable reloadable;
     private RecoilBase recoil;
     private IScopeStatus scopeStatus;
     private ScopeBase scope;
     void Awake()
     {
         fireMech = GetComponent<FireMechanism>();
-        reloadSys = GetComponent<ReloadSystem>();
+        ammoSys = GetComponent<AmmoSystem>();
         recoil = GetComponent<RecoilBase>();
         scopeStatus = GetComponent<IScopeStatus>();
         scope = GetComponent<ScopeBase>();
+        reloadable = GetComponent<IReloadable>();
     }
 
     void Update()
     {
 
         if (fireKey.KeyActive()) {
-            if (fireMech != null  && reloadSys != null) {
+            if (fireMech != null  && ammoSys != null) {
                 FireWeapon();
                 FpsEvents.FpsUpdateHud();
             }
         }
 
         if (reloadKey.KeyActive()) {
-            if (reloadSys != null) {
-                reloadSys.Reload();
+            if (reloadable != null) {
+                reloadable.Reload();
                 FpsEvents.FpsUpdateHud();
             }
         }
@@ -50,9 +52,9 @@ public class FirearmInputScript : MonoBehaviour
 
     void FireWeapon()
     {
-        if (fireMech.CooledDown() && reloadSys.CanFire()) {
+        if (fireMech.CooledDown() && ammoSys.CanFire()) {
             fireMech.Fire();
-            reloadSys.Fired();
+            ammoSys.Fired();
 
             if (scopeStatus.Scoped()) {
                 recoil.RecoilScoped();

@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeSystem : ReloadSystem, IReloadStatus
+public class MeleeSystem : AmmoSystem, IReloadStatus
 {
-
-    public override void CancelReload()
-    {
-        
-    }
 
     public override bool CanFire()
     {
@@ -16,10 +11,6 @@ public class MeleeSystem : ReloadSystem, IReloadStatus
     }
 
     public override void Fired()
-    {
-        
-    }
-    public override void Reload()
     {
         
     }
@@ -35,10 +26,5 @@ public class MeleeSystem : ReloadSystem, IReloadStatus
     public bool Reloading()
     {
         return false;
-    }
-
-    public override void PostFireAction()
-    {
-        
     }
 }

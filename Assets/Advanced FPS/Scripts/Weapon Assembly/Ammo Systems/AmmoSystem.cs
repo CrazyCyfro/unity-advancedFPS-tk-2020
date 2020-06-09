@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class ReloadSystem : MonoBehaviour
+public abstract class AmmoSystem : MonoBehaviour
 {
     public abstract bool CanFire();
     public abstract void Fired();
-
-    public abstract void PostFireAction();
-    public abstract void Reload();
-    public abstract void CancelReload();
 }

@@ -20,7 +20,7 @@ public static class FpsEvents
     }
 }
 
-public class RecoilData
+public struct RecoilData
 {
     public Vector3 recoilVector;
     public float speed;

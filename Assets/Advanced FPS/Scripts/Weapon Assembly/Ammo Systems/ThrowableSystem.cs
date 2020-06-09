@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowableSystem : ReloadSystem, IReloadStatus, ITransferable
+public class ThrowableSystem : AmmoSystem, IReloadStatus, ITransferable
 {
     public int capacity;
     public int initAmmo;
@@ -36,8 +36,6 @@ public class ThrowableSystem : ReloadSystem, IReloadStatus, ITransferable
         return ammo.ToString();
     }
 
-    public override void CancelReload(){}
-
     public override bool CanFire()
     {
         return true;
@@ -54,17 +52,10 @@ public class ThrowableSystem : ReloadSystem, IReloadStatus, ITransferable
         }
     }
 
-    public override void PostFireAction()
-    {
-        
-    }
-
     public bool OutOfAmmo()
     {
         return false;
     }
-
-    public override void Reload(){}
 
     public bool Reloading()
     {
