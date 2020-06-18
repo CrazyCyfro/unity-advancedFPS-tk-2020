@@ -458,6 +458,9 @@ MonoBehaviour:
   - probability: 0.1
     loots:
     - {fileID: 4574827429813243261, guid: d0c06083b8a380b42afceec3629bb80b, type: 3}
+  - probability: 0.1
+    loots:
+    - {fileID: 3913368714100713365, guid: 73017bb16df6a584f9dadecd1c604bb1, type: 3}
 --- !u!1 &8467917449346541745
 GameObject:
   m_ObjectHideFlags: 0

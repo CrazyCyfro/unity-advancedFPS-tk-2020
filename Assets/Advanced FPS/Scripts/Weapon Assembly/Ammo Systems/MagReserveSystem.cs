@@ -51,10 +51,6 @@ public class MagReserveSystem : AmmoSystem, IReloadStatus, IReloadable
 
         mag -= 1;
         
-
-        // Debug.Log("Mag: " + mag);
-        // Debug.Log("Reserve: " + reserve);
-        
     }
 
     IEnumerator FiredDelay()
@@ -81,14 +77,12 @@ public class MagReserveSystem : AmmoSystem, IReloadStatus, IReloadable
 
         FpsEvents.FpsUpdateHud();
 
-        // Debug.Log("Reload started");
     }
 
     public void CancelReload()
     {
         if (reloadCoroutine == null) return;
         StopCoroutine(reloadCoroutine);
-        // if (reloading) Debug.Log("Reload cancelled");
         reloading = false;
         
     }
@@ -108,7 +102,7 @@ public class MagReserveSystem : AmmoSystem, IReloadStatus, IReloadable
             mag += reserve;
             reserve = 0;
         }
-        // Debug.Log("Reload finished");
+
         reloading = false;
 
         FpsEvents.FpsUpdateHud();

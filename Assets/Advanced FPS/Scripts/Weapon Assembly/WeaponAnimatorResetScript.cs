@@ -9,12 +9,10 @@ public class WeaponAnimatorResetScript : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
-        // animator.keepAnimatorControllerStateOnDisable = false;
     }
 
     void OnDisable()
     {
         animator.Rebind();
-        // animator.Play("Reset", 0, 0f);
     }
 }

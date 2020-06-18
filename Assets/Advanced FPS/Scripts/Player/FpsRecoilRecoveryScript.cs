@@ -22,8 +22,6 @@ public class FpsRecoilRecoveryScript : MonoBehaviour
     }
     void UpdateCameraRotation()
     {
-        // t += Time.deltaTime/recoilTime;
-        // playerCamera.transform.rotation = Quaternion.Slerp(startRotation, trueDirection.rotation, t);
         
         float step = recoverySpeed * Time.deltaTime;
 

@@ -107,7 +107,6 @@ public class FpsWeaponSwitchScript : MonoBehaviour
             // Update activeSlot
             activeSlot = parentSlot;
 
-            // FpsEvents.UpdateHeldWeapon.Invoke();
             FpsEvents.FpsUpdateHud();
 
             // Add this slot to the Q
@@ -163,7 +162,6 @@ public class FpsWeaponSwitchScript : MonoBehaviour
         activeSlot.GetChild(0).gameObject.SetActive(true);
 
         // Update weapon reference
-        // FpsEvents.UpdateHeldWeapon.Invoke();
         FpsEvents.FpsUpdateHud();
         
         UpdateQ(num);
@@ -194,7 +192,6 @@ public class FpsWeaponSwitchScript : MonoBehaviour
         }
 
         // Update weapon reference
-        // FpsEvents.UpdateHeldWeapon.Invoke();
         FpsEvents.FpsUpdateHud();
         
     }
